@@ -5,234 +5,281 @@ using UnityEngine.UI;
 
 public class Base : MonoBehaviour
 {
-    //Feliratok
-    public Text Idlemuscle;
-    public Text Idlemusclepersec;
-    public Text Perkatttext, Perkattartext;
-    public Text  Benchlevelartext;
-    public Text  pullupsartext;
-    public Text  dumbellcurlartext;
-    public Text  barbellcurlartext;
-    public Text  dipsartext;
-    public Text  tbarrowartext;
-    public Text  pressesartext;
-    public Text  deadliftartext;
+    // Texts
 
-    //Változók
-    public static double muscle = 0, musclepersec = 0;
-    public double benchlevel = 0, muscleperkattlevel = 1, tbarrowlevel = 0, pullupslevel = 0, dumbellcurllevel = 0;
-    public double barbellcurllevel = 0, dipslevel = 0, presseslevel = 0, deadliftlevel = 0;
-    public float  benchbuy = 50, muscleperkattbuy = 10, tbarrowbuy = 5000000, pullupsbuy = 500, dumbellcurlbuy = 5000;
-    public float barbellcurlbuy = 50000, dipsbuy = 500000, pressesbuy = 50000000, deadliftbuy = 500000000;
+    public Text IdleCoins;
+    public Text IdleCrypto;
+    public Text Coinspersec;
+    public Text LakosEgyszeruText;
+    public Text LakosJoModText;
+    public Text GazdagLakosText;
+    public Text LakosEgyszeruEgyszerText;
+    public Text LakosEgyszeruTizszerText;
+    public Text LakosEgyszeruFejlesztText;
+    public Text LakosJomodEgyszerText;
+    public Text LakosJomodTizszerText;
+    public Text LakosJomodFejlesztText;
+    public Text LakosGazdagEgyszerText;
+    public Text LakosGazdagTizszerText;
+    public Text LakosGazdagFejlesztText;
+
+    // Variables
+    public int LakosEgyszeruszintvalaszto = 1;
+    public int Jomodlakosszintvalaszto = 1;
+    public int Gazdaglakosszintvalaszto = 1;
+    public double coins = 0;
+    public double crypto = 0;
+    public double coinspersec = 0;
+    public double egyszerulakos; 
+    public float egyszerulakosar = 10;
+    public double Jomodlakos = 0;
+    public float Jomodlakosar = 500;
+    public double Gazdaglakos = 0;
+    public float Gazdaglakosar = 2000;
+    public static string Nyelv = "eng";
+
+    public void Start()
+    {
+        English();
+        coins = 10000;
+        crypto = 0;
+        coinspersec = 0;
+        egyszerulakos = 200;
+    }
+
+    public void Update()
+    {
+        // A folyamatosan kapott pénz hozzáírása
+
+        coinspersec = szor.szorzo * (egyszerulakos / 100 + Jomodlakos / 10 + Gazdaglakos * 3);
+        coins += coinspersec * Time.deltaTime;
+
+        // Nyelv
+
+        // Magyar
+        if (Nyelv == "hun")
+        {
+            IdleCoins.text = "" + coins.ToString("F0");
+            IdleCrypto.text = "" + crypto;
+            Coinspersec.text = "" + coinspersec + "Coins per mp";
+
+            // egyszerű lakos
+
+            if (LakosEgyszeruszintvalaszto == 1)
+            {
+                LakosEgyszeruText.text = "Középosztálybeli lakosok:" + egyszerulakos + "\nA fejlesztes ára:" + egyszerulakosar;
+            }
+           else if (LakosEgyszeruszintvalaszto == 2)
+            {
+                LakosEgyszeruText.text = "Középosztálybeli lakosok:" + egyszerulakos + "\nA fejlesztes ára:" + Mathf.Round(egyszerulakosar * Mathf.Pow(10, 1.3F));
+            }
+
+            // jó módu lakos
+
+            if (Jomodlakosszintvalaszto == 1)
+            {
+                LakosJoModText.text = "Jó módu lakosok:" + Jomodlakos + "\nA fejlesztés ára:" + Jomodlakosar;
+            }
+            else if (Jomodlakosszintvalaszto == 2)
+            {
+                LakosJoModText.text = "Jó módu lakosok:" + Jomodlakos + "\nA fejlesztés ára:" + Mathf.Round(Jomodlakosar * Mathf.Pow(10, 2F));
+            }
+
+            // gazdag lakos
+
+            if (Gazdaglakosszintvalaszto == 1)
+            {
+                GazdagLakosText.text = "Gazdag lakosok" + Gazdaglakos + "\n A fejlesztés ára:" + Gazdaglakosar;
+            }
+            else if (Gazdaglakosszintvalaszto == 2)
+            {
+                GazdagLakosText.text = "Gazdag lakosok" + Gazdaglakos + "\n A fejlesztés ára:" + Mathf.Round(Gazdaglakosar * Mathf.Pow(10, 4F));
+            }
+            
+        }
+
+            // Angol
+
+        if (Nyelv == "eng")
+        {
+            IdleCoins.text = "" + coins.ToString("F0");
+            IdleCrypto.text = "" + crypto;
+            Coinspersec.text = "" + coinspersec + "Coins per sec";
+
+            // egyszerű lakos
+
+            if (LakosEgyszeruszintvalaszto == 1)
+            {
+                LakosEgyszeruText.text = "Middle class residents:" + egyszerulakos + "\n The price of development:" + egyszerulakosar;
+            }
+            else if (LakosEgyszeruszintvalaszto == 2)
+            {
+                LakosEgyszeruText.text = "Middle class residents:" + egyszerulakos + "\n The price of development:" + Mathf.Round(egyszerulakosar * Mathf.Pow(10, 1.3F));
+            }
+
+            // jó módu lakos
+
+            if (Jomodlakosszintvalaszto == 1)
+            {
+                LakosJoModText.text = "Good way residents:" + Jomodlakos + "\nThe price of development:" + Jomodlakosar;
+            }
+            else if (Jomodlakosszintvalaszto == 2)
+            {
+                LakosJoModText.text = "Good way residents:" + Jomodlakos + "\nThe price of development:" + Mathf.Round(Jomodlakosar * Mathf.Pow(10, 2F));
+            }
+
+            // gazdag lakos
+
+            if (Gazdaglakosszintvalaszto == 1)
+            {
+                GazdagLakosText.text = "Wealthy residents:" + Gazdaglakos + "\n he price of development:" + Gazdaglakosar;
+            }
+            else if (Gazdaglakosszintvalaszto == 2)
+            {
+                GazdagLakosText.text = "Wealthy residents:" + Gazdaglakos + "\n he price of development:" + Mathf.Round(Gazdaglakosar * Mathf.Pow(10, 4F));
+            }
+        }
+    }
+
+
+    // A folyamatosan kapott pénz növelése
+        // Egyszerű lakos fejlesztése
+    public void Lakosegyszeru()
+    {
+        LakosEgyszeruszintvalaszto = 1;
+    }
+
+    public void Lakosegyszeru10()
+    {
+        LakosEgyszeruszintvalaszto = 2;
+    }
+
+    public void Lakosegyszerufejleszt()
+    {
+        if (LakosEgyszeruszintvalaszto == 1)
+        {
+            if (coins >= egyszerulakosar)
+
+            {
+                coins -= egyszerulakosar;
+                egyszerulakos += 100;
+                egyszerulakosar *= 1.3F;
+                egyszerulakosar = Mathf.Round(egyszerulakosar);
+            }
+        }
+        if (LakosEgyszeruszintvalaszto == 2)
+        {
+            if (coins >= egyszerulakosar * Mathf.Pow(10, 1.3F))
+
+            {
+                coins -= egyszerulakosar * Mathf.Pow(10, 1.3F);
+                egyszerulakos += 1000;
+                egyszerulakosar *= Mathf.Pow(10, 1.3F);
+                egyszerulakosar = Mathf.Round(egyszerulakosar);
+            }
+        }
+    }
+    // Jó módu lakosság fejlesztése
+
+    public void Lakosjomood()
+    {
+        Jomodlakosszintvalaszto = 1;
+    }
+
+    public void Lakosjomod10()
+    {
+        Jomodlakosszintvalaszto = 2;
+    }
+    public void Lakosjomodfejleszt()
+    {
+        if (Jomodlakosszintvalaszto == 1)
+        {
+            if (coins >= Jomodlakosar)
+
+            {
+                coins -= Jomodlakosar;
+                Jomodlakos += 30;
+                Jomodlakosar *= 2;
+                Jomodlakosar = Mathf.Round(Jomodlakosar);
+            }
+        }
+        if (Jomodlakosszintvalaszto == 2)
+        {
+            if (coins >= Jomodlakosar * Mathf.Pow(10, 2F))
+
+            {
+                coins -= Jomodlakosar * Mathf.Pow(10, 2F);
+                Jomodlakos += 300;
+                Jomodlakosar *= Mathf.Pow(10, 2F);
+                Jomodlakosar = Mathf.Round(Jomodlakosar);
+            }
+        }
+    }
+    // Gazdag lakosság fejlesztése: 
     
-    void Start()
+    public void Lakosgazdag()
     {
-        Load();
+        Gazdaglakosszintvalaszto = 1;
     }
 
-   
-    void Update()
+    public void Lakosgazdagd10()
     {
-        muscle += musclepersec * Time.deltaTime;
-        musclepersec = szorBase.szorzo * (benchlevel + pullupslevel * 10 + dumbellcurllevel * 100 + barbellcurllevel * 1000 + dipslevel * 10000 + tbarrowlevel * 1000000 + presseslevel * 10000000 + deadliftlevel * 100000000);
-
-        Idlemuscle.text = "" + muscle.ToString("F0");
-        Idlemusclepersec.text = "" + musclepersec + "/sec";
-        Perkatttext.text = "" + muscleperkattlevel + "/click";
-        Perkattartext.text = "" + muscleperkattbuy + "muscle";
-        Benchlevelartext.text = "" + benchbuy + "muscle";
-        pullupsartext.text = "" + pullupsbuy + "muscle";
-        dumbellcurlartext.text = "" + dumbellcurlbuy + "muscle";
-        barbellcurlartext.text = "" + barbellcurlbuy + "muscle";
-        dipsartext.text = "" + dipsbuy + "muscle";
-        tbarrowartext.text = "" + tbarrowbuy + "muscle";
-        pressesartext.text = "" + pressesbuy + "muscle";
-        deadliftartext.text = "" + deadliftbuy + "muscle";
-        Save();
+        Gazdaglakosszintvalaszto = 2;
     }
 
-    public void Load()
+    public void LakosGazdagfejleszt()
     {
-
-        // doubles
-
-        muscle = double.Parse(PlayerPrefs.GetString("muscle"));
-        musclepersec = double.Parse(PlayerPrefs.GetString("musclepersec"));
-        benchlevel = double.Parse(PlayerPrefs.GetString("benchlevel"));
-        muscleperkattlevel = double.Parse(PlayerPrefs.GetString("muscleperkattlevel"));
-        tbarrowlevel = double.Parse(PlayerPrefs.GetString("tbarrowlevel"));
-        pullupslevel = double.Parse(PlayerPrefs.GetString("pullupslevel"));
-        dumbellcurllevel = double.Parse(PlayerPrefs.GetString("dumbellcurllevel"));
-        barbellcurllevel = double.Parse(PlayerPrefs.GetString("barbellcurllevel"));
-        dipslevel = double.Parse(PlayerPrefs.GetString("dipslevel"));
-        presseslevel = double.Parse(PlayerPrefs.GetString("presseslevel"));
-        deadliftlevel = double.Parse(PlayerPrefs.GetString("deadliftlevel"));
-
-        //floats
-
-        benchbuy = float.Parse(PlayerPrefs.GetString("benchbuy"));
-        muscleperkattbuy = float.Parse(PlayerPrefs.GetString("muscleperkattbuy"));
-        tbarrowbuy = float.Parse(PlayerPrefs.GetString("tbarrowbuy"));
-        pullupsbuy = float.Parse(PlayerPrefs.GetString("pullupsbuy"));
-        dumbellcurlbuy = float.Parse(PlayerPrefs.GetString("dumbellcurlbuy"));
-        barbellcurlbuy = float.Parse(PlayerPrefs.GetString("barbellcurlbuy"));
-        dipsbuy = float.Parse(PlayerPrefs.GetString("dipsbuy"));
-        pressesbuy = float.Parse(PlayerPrefs.GetString("pressesbuy"));
-        deadliftbuy = float.Parse(PlayerPrefs.GetString("deadliftbuy"));
-    }
-
-    public void Save()
-    {
-        
-        //doubles
-
-        PlayerPrefs.SetString("muscle", muscle.ToString());
-        PlayerPrefs.SetString("musclepersec", musclepersec.ToString());
-        PlayerPrefs.SetString("benchlevel", benchlevel.ToString());
-        PlayerPrefs.SetString("muscleperkattlevel", muscleperkattlevel.ToString());
-        PlayerPrefs.SetString("tbarrowlevel", tbarrowlevel.ToString());
-        PlayerPrefs.SetString("pullupslevel", pullupslevel.ToString());
-        PlayerPrefs.SetString("dumbellcurllevel", dumbellcurllevel.ToString());
-        PlayerPrefs.SetString("barbellcurllevel", barbellcurllevel.ToString());
-        PlayerPrefs.SetString("dipslevel", dipslevel.ToString());
-        PlayerPrefs.SetString("presseslevel", presseslevel.ToString());
-        PlayerPrefs.SetString("deadliftlevel", deadliftlevel.ToString());
-
-        // doubles
-
-        PlayerPrefs.SetString("benchbuy", benchbuy.ToString());
-        PlayerPrefs.SetString("muscleperkattbuy", muscleperkattbuy.ToString());
-        PlayerPrefs.SetString("tbarrowbuy", tbarrowbuy.ToString());
-        PlayerPrefs.SetString("pullupsbuy", pullupsbuy.ToString());
-        PlayerPrefs.SetString("dumbellcurlbuy", dumbellcurlbuy.ToString());
-        PlayerPrefs.SetString("barbellcurlbuy", barbellcurlbuy.ToString());
-        PlayerPrefs.SetString("dipsbuy", dipsbuy.ToString());
-        PlayerPrefs.SetString("pressesbuy", pressesbuy.ToString());
-        PlayerPrefs.SetString("deadliftbuy", deadliftbuy.ToString());
- 
-    }
-
-    public void Kattint()
-    {
-        muscle += muscleperkattlevel;
-    }
-
-    //fejlesztések vásárlása
-
-    public void Muscleeperkatt()
-    {
-        if (muscle >= muscleperkattbuy)
+        if (Gazdaglakosszintvalaszto == 1)
         {
-            muscle -= muscleperkattbuy;
-            muscleperkattlevel++;
-            muscleperkattbuy = Mathf.Round(muscleperkattbuy * 1.3F);
+            if (coins >= Gazdaglakosar)
+
+            {
+                coins -= Gazdaglakosar;
+                Gazdaglakos += 10;
+                Gazdaglakosar *= 4;
+                Gazdaglakosar = Mathf.Round(Gazdaglakosar);
+            }
+        }
+        if (Gazdaglakosszintvalaszto == 2)
+        {
+            if (coins >= Gazdaglakosar * Mathf.Pow(10, 4F))
+
+            {
+                coins -= Gazdaglakosar * Mathf.Pow(10, 4F);
+                Gazdaglakos += 100;
+                Gazdaglakosar *= Mathf.Pow(10, 4F);
+                Gazdaglakosar = Mathf.Round(Gazdaglakosar);
+            }
         }
     }
 
-    public void Benchlevel()
+    // Nyelv váéasztó
+
+    public void English()
     {
-        if (muscle >= benchbuy)
-        {
-            muscle -= benchbuy; 
-            benchlevel++;
-            benchbuy = Mathf.Round(benchbuy * 1.5F);
-        }
-    }
-
-
-
-    public void Pullupslevel()
-    {
-        if (muscle >= pullupsbuy)
-        {
-            muscle -= pullupsbuy;
-            pullupslevel++;
-            pullupsbuy = Mathf.Round(pullupsbuy * 2F);
-        }
-    }
-
-    public void DumbbellCurl()
-    {
-        if (muscle >= dumbellcurlbuy)
-        {
-            muscle -= dumbellcurlbuy;
-            dumbellcurllevel++;
-            dumbellcurlbuy = Mathf.Round(dumbellcurlbuy * 2.5F);
-        }
-    }
-
-    public void BarbellCurl()
-    {
-        if (muscle >= barbellcurlbuy)
-        {
-            muscle -= barbellcurlbuy;
-            barbellcurllevel++;
-            barbellcurlbuy = Mathf.Round(barbellcurlbuy * 3F);
-        }
-    }
-
-    public void TBarRowlevel()
-    {
-        if (muscle >= tbarrowbuy)
-        {
-            muscle -= tbarrowbuy;
-            tbarrowlevel++;
-            tbarrowbuy = Mathf.Round(tbarrowbuy * 3.5F);
-        }
-    }
-
-    public void Dips()
-    {
-        if (muscle >= dipsbuy)
-        {
-            muscle -= dipsbuy;
-            dipslevel++;
-            dipsbuy = Mathf.Round(dipsbuy * 4F);
-        }
-    }
-
-    public void Presses()
-    {
-        if (muscle >= pressesbuy)
-        {
-            muscle -= pressesbuy;
-            presseslevel++;
-            pressesbuy = Mathf.Round(pressesbuy * 2.5F);
-        }
-    }
-
-    public void Deadliftlevel()
-    {
-        if (muscle >= deadliftbuy)
-        {
-            muscle -= deadliftbuy;
-            deadliftlevel++;
-            deadliftbuy = Mathf.Round(deadliftbuy * 2F);
-        }
-    }
-
-    public void Reset()
-    {
-        muscle = 0; 
-        musclepersec = 0;
-        benchlevel = 0;
-        muscleperkattlevel = 1;
-        tbarrowlevel = 0;
-        pullupslevel = 0; 
-        dumbellcurllevel = 0;
-        barbellcurllevel = 0;
-        dipslevel = 0;
-        presseslevel = 0;
-        deadliftlevel = 0;
-        benchbuy = 50;
-        muscleperkattbuy = 10;
-        tbarrowbuy = 5000000;
-        pullupsbuy = 500;
-        dumbellcurlbuy = 5000;
-        barbellcurlbuy = 50000;
-        dipsbuy = 500000;
-        pressesbuy = 50000000;
-        deadliftbuy = 500000000;
-
+        Nyelv = "eng";
+        LakosEgyszeruEgyszerText.text = "Once";
+        LakosEgyszeruTizszerText.text = "Ten times";
+        LakosEgyszeruFejlesztText.text = "Upgrade";
+        LakosJomodEgyszerText.text = "Once";
+        LakosJomodTizszerText.text = "Ten times";
+        LakosJomodFejlesztText.text = "Upgrade";
+        LakosGazdagEgyszerText.text = "Once";
+        LakosGazdagTizszerText.text = "Ten times";
+        LakosGazdagFejlesztText.text = "Upgrade";
 }
+
+    public void Magyar()
+    {
+        Nyelv = "hun";
+        LakosEgyszeruEgyszerText.text = "Egyszer";
+        LakosEgyszeruTizszerText.text = "Tízszer";
+        LakosEgyszeruFejlesztText.text = "Fejlesztés";
+        LakosJomodEgyszerText.text = "Egyszer";
+        LakosJomodTizszerText.text = "Tízszer";
+        LakosJomodFejlesztText.text = "Fejlesztés";
+        LakosGazdagEgyszerText.text = "Egyszer";
+        LakosGazdagTizszerText.text = "Tízszer";
+        LakosGazdagFejlesztText.text = "Fejlesztés";
+    }
 }
