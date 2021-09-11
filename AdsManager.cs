@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class AdsManegerBase : MonoBehaviour, IUnityAdsListener
+public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
 #if UNITY_IOS
-    string gameId = "4281106";
+    string gameId = "4222816";
 #else
-    string gameId = "4281107";
+    string gameId = "4222817";
 #endif
 
 
-    int choose = 0;
 
+    
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class AdsManegerBase : MonoBehaviour, IUnityAdsListener
 
         Advertisement.AddListener(this);
         Advertisement.Initialize(gameId, true);
-
+        
     }
 
 
@@ -38,44 +38,31 @@ public class AdsManegerBase : MonoBehaviour, IUnityAdsListener
         }
     }
 
-    public void OnUnityAdsReady(string placementId)
-    {
-        Debug.Log("1");
-    }
+        public void OnUnityAdsReady(string placementId)
+        {
+            Debug.Log("1");
+        }
 
     public void OnUnityAdsDidStart(string placementId)
-    {
-        Debug.Log("2");
-    }
+        {
+            Debug.Log("2");
+        }
 
     public void OnUnityAdsDidError(string message)
-    {
-        Debug.Log("3" + message);
-    }
+        {
+            Debug.Log("3" + message);
+        }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
-    {
-        if (placementId == "Rewarded_Android" && showResult == ShowResult.Finished)
         {
-            if (choose == 1)
+            if (placementId == "Rewarded_Android" && showResult == ShowResult.Finished)
             {
-                szorBase.szorzo = 2;
-                szorBase.szamlalo = szorBase.szamlalo + 300;
+            szor.szorzo = 2;
+                szor.szamlalo = szor.szamlalo + 300;
                 Debug.Log("Végre");
-            }
-            if (choose == 2)
-            {
-                Base.muscle += Base.musclepersec * 200;
+                
             }
         }
-    }
 
-    public void TimeAds()
-    {
-        choose = 1;
-    }
-    public void Instant()
-    {
-        choose = 2;
-    }
+
 }
